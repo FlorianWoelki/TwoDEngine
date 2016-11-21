@@ -3,6 +3,7 @@ package test;
 import com.florianwoelki.twodengine.AbstractGame;
 import com.florianwoelki.twodengine.GameContainer;
 import com.florianwoelki.twodengine.gfx.Renderer;
+import com.florianwoelki.twodengine.sfx.SoundClip;
 
 import java.awt.event.KeyEvent;
 
@@ -25,13 +26,18 @@ public class Game extends AbstractGame {
     @Override
     public void update( GameContainer gc, float dt ) {
         if ( gc.getInput().isKey( KeyEvent.VK_UP ) ) {
-            y--;
+            y -= dt * 150;
         } else if ( gc.getInput().isKey( KeyEvent.VK_DOWN ) ) {
-            y++;
+            y += dt * 150;
         } else if ( gc.getInput().isKey( KeyEvent.VK_LEFT ) ) {
-            x--;
+            x -= dt * 150;
         } else if ( gc.getInput().isKey( KeyEvent.VK_RIGHT ) ) {
-            x++;
+            x += dt * 150;
+        }
+
+        if ( gc.getInput().isKeyPressed( KeyEvent.VK_SPACE ) ) {
+            SoundClip clip = new SoundClip( "/sfx/coin_pickup.wav" );
+            clip.play();
         }
     }
 
