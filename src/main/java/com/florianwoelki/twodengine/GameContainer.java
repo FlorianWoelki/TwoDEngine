@@ -35,6 +35,8 @@ public class GameContainer implements Runnable {
         renderer = new Renderer( this );
         input = new Input( this );
 
+        window.getCanvas().setFocusable( true );
+
         isRunning = true;
         thread = new Thread( this );
         thread.start();
