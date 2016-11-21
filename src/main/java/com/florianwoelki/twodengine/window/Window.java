@@ -30,8 +30,7 @@ public class Window {
 
         frame = new JFrame( gc.getTitle() );
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        frame.setLayout( new BorderLayout() );
-        frame.add( canvas, BorderLayout.CENTER );
+        frame.add( canvas );
         frame.pack();
         frame.setLocationRelativeTo( null );
         frame.setResizable( false );

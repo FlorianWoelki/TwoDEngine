@@ -15,14 +15,17 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
 
     private GameContainer gc;
 
-    private static boolean[] keys = new boolean[256];
-    private static boolean[] keysLast = new boolean[256];
+    private boolean[] keys = new boolean[256];
+    private boolean[] keysLast = new boolean[256];
 
-    private static boolean[] buttons = new boolean[5];
-    private static boolean[] buttonsLast = new boolean[5];
+    private boolean[] buttons = new boolean[5];
+    private boolean[] buttonsLast = new boolean[5];
+
+    private int mouseX, mouseY;
 
     public Input( GameContainer gc ) {
         this.gc = gc;
+
         gc.getWindow().getCanvas().addKeyListener( this );
         gc.getWindow().getCanvas().addMouseListener( this );
         gc.getWindow().getCanvas().addMouseMotionListener( this );
@@ -33,27 +36,27 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
         buttonsLast = buttons.clone();
     }
 
-    public static boolean isKey( int keyCode ) {
+    public boolean isKey( int keyCode ) {
         return keys[keyCode];
     }
 
-    public static boolean isKeyPressed( int keyCode ) {
+    public boolean isKeyPressed( int keyCode ) {
         return keys[keyCode] && !keysLast[keyCode];
     }
 
-    public static boolean isKeyReleased( int keyCode ) {
+    public boolean isKeyReleased( int keyCode ) {
         return !keys[keyCode] && keysLast[keyCode];
     }
 
-    public static boolean isButton( int button ) {
+    public boolean isButton( int button ) {
         return buttons[button];
     }
 
-    public static boolean isButtonPressed( int button ) {
+    public boolean isButtonPressed( int button ) {
         return buttons[button] && !buttonsLast[button];
     }
 
-    public static boolean isButtonReleased( int button ) {
+    public boolean isButtonReleased( int button ) {
         return !buttons[button] && buttonsLast[button];
     }
 
@@ -95,10 +98,30 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged( MouseEvent e ) {
+        mouseX = (int) ( e.getX() / gc.getScale() );
+        mouseY = (int) ( e.getY() / gc.getScale() );
     }
 
     @Override
     public void mouseMoved( MouseEvent e ) {
+        mouseX = (int) ( e.getX() / gc.getScale() );
+        mouseY = (int) ( e.getY() / gc.getScale() );
+    }
+
+    public int getMouseX() {
+        return mouseX;
+    }
+
+    public void setMouseX( int mouseX ) {
+        this.mouseX = mouseX;
+    }
+
+    public int getMouseY() {
+        return mouseY;
+    }
+
+    public void setMouseY( int mouseY ) {
+        this.mouseY = mouseY;
     }
 
 }

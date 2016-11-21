@@ -113,6 +113,10 @@ public class GameContainer implements Runnable {
         window.cleanUp();
     }
 
+    public Input getInput() {
+        return input;
+    }
+
     public void setWidth( int width ) {
         this.width = width;
     }

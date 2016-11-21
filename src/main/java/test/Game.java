@@ -3,7 +3,6 @@ package test;
 import com.florianwoelki.twodengine.AbstractGame;
 import com.florianwoelki.twodengine.GameContainer;
 import com.florianwoelki.twodengine.gfx.Renderer;
-import com.florianwoelki.twodengine.input.Input;
 
 import java.awt.event.KeyEvent;
 
@@ -25,13 +24,13 @@ public class Game extends AbstractGame {
 
     @Override
     public void update( GameContainer gc, float dt ) {
-        if ( Input.isKey( KeyEvent.VK_W ) ) {
+        if ( gc.getInput().isKey( KeyEvent.VK_UP ) ) {
             y--;
-        } else if ( Input.isKey( KeyEvent.VK_S ) ) {
+        } else if ( gc.getInput().isKey( KeyEvent.VK_DOWN ) ) {
             y++;
-        } else if ( Input.isKey( KeyEvent.VK_A ) ) {
+        } else if ( gc.getInput().isKey( KeyEvent.VK_LEFT ) ) {
             x--;
-        } else if ( Input.isKey( KeyEvent.VK_D ) ) {
+        } else if ( gc.getInput().isKey( KeyEvent.VK_RIGHT ) ) {
             x++;
         }
     }
