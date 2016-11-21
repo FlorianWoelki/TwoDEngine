@@ -28,6 +28,9 @@ public class Window {
         canvas.setMaximumSize( size );
         canvas.setMinimumSize( size );
 
+        canvas.setFocusable( true );
+        canvas.requestFocus();
+
         frame = new JFrame( gc.getTitle() );
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
         frame.setLayout( new BorderLayout() );

@@ -103,6 +103,7 @@ public class GameContainer implements Runnable {
         }
 
         cleanUp();
+        stop();
     }
 
     private void cleanUp() {
