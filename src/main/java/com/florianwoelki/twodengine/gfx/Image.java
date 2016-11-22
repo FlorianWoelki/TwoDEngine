@@ -1,5 +1,7 @@
 package com.florianwoelki.twodengine.gfx;
 
+import com.florianwoelki.twodengine.light.ShadowType;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.io.IOException;
 public class Image {
 
     public int width, height;
+    public ShadowType shadowType = ShadowType.NONE;
     public int[] pixels;
 
     public Image( String path ) {

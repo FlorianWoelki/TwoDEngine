@@ -5,6 +5,7 @@ import com.florianwoelki.twodengine.GameContainer;
 import com.florianwoelki.twodengine.gfx.Image;
 import com.florianwoelki.twodengine.gfx.Renderer;
 import com.florianwoelki.twodengine.light.Light;
+import com.florianwoelki.twodengine.light.ShadowType;
 import com.florianwoelki.twodengine.sfx.SoundClip;
 
 import java.awt.event.KeyEvent;
@@ -15,8 +16,9 @@ import java.awt.event.KeyEvent;
 public class Game extends AbstractGame {
 
     private Image image = new Image( "/images/test.png" );
+    private Image image2 = new Image( "/images/test2.png" );
     private Light light0 = new Light( 0xffff0000, 60 );
-    private Light light1 = new Light( 0xff00ff00, 60 );
+    private Light light1 = new Light( 0xffffffff, 60 );
     private Light light2 = new Light( 0xff0000ff, 60 );
 
     public static void main( String[] args ) {
@@ -25,6 +27,10 @@ public class Game extends AbstractGame {
         gc.setHeight( 240 );
         gc.setScale( 3 );
         gc.start();
+    }
+
+    public Game() {
+        image2.shadowType = ShadowType.FADE;
     }
 
     int x = 0;
@@ -51,9 +57,8 @@ public class Game extends AbstractGame {
     @Override
     public void render( GameContainer gc, Renderer renderer ) {
         renderer.drawImage( image, 0, 0 );
-        renderer.drawLight( light0, gc.getInput().getMouseX(), gc.getInput().getMouseY() );
-        renderer.drawLight( light1, 50, 50 );
-        renderer.drawLight( light2, 75, 50 );
+        renderer.drawImage( image2, 0, 0 );
+        renderer.drawLight( light1, gc.getInput().getMouseX(), gc.getInput().getMouseY() );
     }
 
 }

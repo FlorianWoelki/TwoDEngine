@@ -24,10 +24,18 @@ public class Light {
                 if ( distance < radius ) {
                     lightMap[x + y * diameter] = Pixel.getColorPower( color, 1 - distance / radius );
                 } else {
-                    lightMap[x + y * diameter] = 0;
+                    lightMap[x + y * diameter] = 0xff000000;
                 }
             }
         }
+    }
+
+    public int getLightValue( int x, int y ) {
+        if ( x < 0 || x >= diameter || y < 0 || y >= diameter ) {
+            return 0xff000000;
+        }
+
+        return lightMap[x + y * diameter];
     }
 
 }
