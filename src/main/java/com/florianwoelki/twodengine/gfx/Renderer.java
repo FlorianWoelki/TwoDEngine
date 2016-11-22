@@ -2,9 +2,12 @@ package com.florianwoelki.twodengine.gfx;
 
 import com.florianwoelki.twodengine.GameContainer;
 import com.florianwoelki.twodengine.light.Light;
+import com.florianwoelki.twodengine.light.LightRequest;
 import com.florianwoelki.twodengine.light.ShadowType;
 
 import java.awt.image.DataBufferInt;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Florian Woelki on 21.11.16.
@@ -19,6 +22,8 @@ public class Renderer {
     private int ambientLight = Pixel.getColor( 1, 0.1f, 0.1f, 0.1f );
 
     private Font font = Font.STANDARD;
+
+    private List<LightRequest> lightRequests = new ArrayList<>();
 
     public Renderer( GameContainer gc ) {
         width = gc.getWidth();
@@ -90,6 +95,14 @@ public class Renderer {
         }
     }
 
+    public void drawLightArray() {
+        for ( LightRequest lightRequest : lightRequests ) {
+            drawLightRequest( lightRequest.light, lightRequest.x, lightRequest.y );
+        }
+
+        lightRequests.clear();
+    }
+
     public void drawImage( Image image, int xOffset, int yOffset ) {
         for ( int x = 0; x < image.width; x++ ) {
             for ( int y = 0; y < image.height; y++ ) {
@@ -107,6 +120,10 @@ public class Renderer {
     }
 
     public void drawLight( Light light, int xOffset, int yOffset ) {
+        lightRequests.add( new LightRequest( light, xOffset, yOffset ) );
+    }
+
+    private void drawLightRequest( Light light, int xOffset, int yOffset ) {
         for ( int i = 0; i <= light.diameter; i++ ) {
             drawLightLine( light.radius, light.radius, i, 0, light, xOffset, yOffset );
             drawLightLine( light.radius, light.radius, i, light.diameter, light, xOffset, yOffset );
