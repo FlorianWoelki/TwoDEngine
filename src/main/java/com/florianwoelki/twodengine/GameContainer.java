@@ -1,5 +1,6 @@
 package com.florianwoelki.twodengine;
 
+import com.florianwoelki.twodengine.components.Physics;
 import com.florianwoelki.twodengine.gfx.Renderer;
 import com.florianwoelki.twodengine.input.Input;
 import com.florianwoelki.twodengine.window.Window;
@@ -19,6 +20,7 @@ public class GameContainer implements Runnable {
     private Window window;
     private Renderer renderer;
     private Input input;
+    private Physics physics;
 
     private Thread thread;
     private boolean isRunning = false;
@@ -41,6 +43,7 @@ public class GameContainer implements Runnable {
         window = new Window( this );
         renderer = new Renderer( this );
         input = new Input( this );
+        physics = new Physics();
 
         window.getCanvas().setFocusable( true );
         window.getCanvas().requestFocus();
@@ -88,6 +91,7 @@ public class GameContainer implements Runnable {
                 if ( input.isKeyPressed( KeyEvent.VK_F2 ) ) debug = !debug;
 
                 game.update( this, (float) frameCap );
+                physics.update();
                 input.update();
                 unprocessedTime -= frameCap;
                 render = true;
@@ -127,6 +131,14 @@ public class GameContainer implements Runnable {
 
     private void cleanUp() {
         window.cleanUp();
+    }
+
+    public AbstractGame getGame() {
+        return game;
+    }
+
+    public Physics getPhysics() {
+        return physics;
     }
 
     public void setFrameCap( int number ) {

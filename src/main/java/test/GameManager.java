@@ -10,16 +10,17 @@ import com.florianwoelki.twodengine.gfx.Renderer;
 public class GameManager extends AbstractGame {
 
     public GameManager() {
-
+        push( new PlayState() );
     }
 
     @Override
     public void update( GameContainer gc, float dt ) {
-
+        peek().update( gc, dt );
     }
 
     @Override
     public void render( GameContainer gc, Renderer renderer ) {
+        peek().render( gc, renderer );
     }
 
     public static void main( String[] args ) {
@@ -27,6 +28,7 @@ public class GameManager extends AbstractGame {
         gc.setWidth( 320 );
         gc.setHeight( 240 );
         gc.setScale( 3 );
+        gc.setClearScreen( true );
         gc.setDynamicLights( false );
         gc.setEnableLighting( false );
         gc.start();

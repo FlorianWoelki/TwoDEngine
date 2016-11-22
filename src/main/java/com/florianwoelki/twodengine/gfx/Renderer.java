@@ -135,8 +135,18 @@ public class Renderer {
         }
     }
 
+    public void drawRect( int xOffset, int yOffset, int width, int height, int color, ShadowType shadowType ) {
+        for ( int x = 0; x < width; x++ ) {
+            for ( int y = 0; y < height; y++ ) {
+                setPixel( x + xOffset, y + yOffset, color, shadowType );
+            }
+        }
+    }
+
     public void drawLight( Light light, int xOffset, int yOffset ) {
-        lightRequests.add( new LightRequest( light, xOffset, yOffset ) );
+        if ( gc.isDynamicLights() || gc.isEnableLighting() ) {
+            lightRequests.add( new LightRequest( light, xOffset, yOffset ) );
+        }
     }
 
     private void drawLightRequest( Light light, int xOffset, int yOffset ) {
@@ -249,6 +259,10 @@ public class Renderer {
 
     public void drawLight( Light light ) {
         drawLight( light, 0, 0 );
+    }
+
+    public void drawRect( int xOffset, int yOffset, int width, int height, int color ) {
+        drawRect( xOffset, yOffset, width, height, color, ShadowType.NONE );
     }
 
 }

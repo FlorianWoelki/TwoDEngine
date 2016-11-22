@@ -1,0 +1,24 @@
+package com.florianwoelki.twodengine.components;
+
+import com.florianwoelki.twodengine.GameContainer;
+import com.florianwoelki.twodengine.components.objects.ObjectManager;
+import com.florianwoelki.twodengine.gfx.Renderer;
+
+/**
+ * Created by Florian Woelki on 22.11.16.
+ */
+public abstract class State {
+
+    protected ObjectManager manager = new ObjectManager();
+
+    public abstract void update( GameContainer gc, float dt );
+
+    public abstract void render( GameContainer gc, Renderer renderer );
+
+    public abstract void dispose();
+
+    public ObjectManager getManager() {
+        return manager;
+    }
+
+}
