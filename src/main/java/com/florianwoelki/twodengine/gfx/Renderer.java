@@ -14,43 +14,59 @@ import java.util.List;
  */
 public class Renderer {
 
+    private GameContainer gc;
+
     private int width, height;
     private int[] pixels;
     private int[] lightMap;
-    private ShadowType[] lightBlock;
+    private ShadowType[] shadowMap;
 
     private int ambientLight = Pixel.getColor( 1, 0.1f, 0.1f, 0.1f );
+    private int clearColor = 0xff000000;
+
+    private int transX, transY;
 
     private Font font = Font.STANDARD;
 
     private List<LightRequest> lightRequests = new ArrayList<>();
 
     public Renderer( GameContainer gc ) {
+        this.gc = gc;
+
         width = gc.getWidth();
         height = gc.getHeight();
         pixels = ( (DataBufferInt) gc.getWindow().getImage().getRaster().getDataBuffer() ).getData();
         lightMap = new int[pixels.length];
-        lightBlock = new ShadowType[pixels.length];
+        shadowMap = new ShadowType[pixels.length];
     }
 
-    public void setPixel( int x, int y, int color, ShadowType lightBlock ) {
+    public void setPixel( int x, int y, int color, ShadowType shadowType ) {
+        x -= transX;
+        y -= transY;
+
         if ( ( x < 0 || x >= width || y < 0 || y >= height ) || color == 0xffff00ff ) {
             return;
         }
 
         pixels[x + y * width] = color;
-        this.lightBlock[x + y * width] = lightBlock;
+        this.shadowMap[x + y * width] = shadowType;
     }
 
     public ShadowType getLightBlock( int x, int y ) {
+        x -= transX;
+        y -= transY;
+
         if ( ( x < 0 || x >= width || y < 0 || y >= height ) ) {
             return ShadowType.TOTAL;
         }
 
-        return lightBlock[x + y * width];
+        return shadowMap[x + y * width];
     }
 
     public void setLightMap( int x, int y, int color ) {
+        x -= transX;
+        y -= transY;
+
         if ( ( x < 0 || x >= width || y < 0 || y >= height ) ) {
             return;
         }
@@ -81,16 +97,16 @@ public class Renderer {
     public void clear() {
         for ( int x = 0; x < width; x++ ) {
             for ( int y = 0; y < height; y++ ) {
-                pixels[x + y * width] = 0xff000000;
-                lightMap[x + y * width] = ambientLight;
+                pixels[x + y * width] = clearColor;
             }
         }
     }
 
-    public void combineMaps() {
+    public void flushMaps() {
         for ( int x = 0; x < width; x++ ) {
             for ( int y = 0; y < height; y++ ) {
-                setPixel( x, y, Pixel.getLightBlend( pixels[x + y * width], lightMap[x + y * width], ambientLight ), lightBlock[x + y * width] );
+                setPixel( x, y, Pixel.getLightBlend( pixels[x + y * width], lightMap[x + y * width], ambientLight ), shadowMap[x + y * width] );
+                lightMap[x + y * width] = ambientLight;
             }
         }
     }
@@ -124,11 +140,19 @@ public class Renderer {
     }
 
     private void drawLightRequest( Light light, int xOffset, int yOffset ) {
-        for ( int i = 0; i <= light.diameter; i++ ) {
-            drawLightLine( light.radius, light.radius, i, 0, light, xOffset, yOffset );
-            drawLightLine( light.radius, light.radius, i, light.diameter, light, xOffset, yOffset );
-            drawLightLine( light.radius, light.radius, 0, i, light, xOffset, yOffset );
-            drawLightLine( light.radius, light.radius, light.diameter, i, light, xOffset, yOffset );
+        if ( gc.isDynamicLights() ) {
+            for ( int i = 0; i <= light.diameter; i++ ) {
+                drawLightLine( light.radius, light.radius, i, 0, light, xOffset, yOffset );
+                drawLightLine( light.radius, light.radius, i, light.diameter, light, xOffset, yOffset );
+                drawLightLine( light.radius, light.radius, 0, i, light, xOffset, yOffset );
+                drawLightLine( light.radius, light.radius, light.diameter, i, light, xOffset, yOffset );
+            }
+        } else {
+            for ( int x = 0; x < light.diameter; x++ ) {
+                for ( int y = 0; y < light.diameter; y++ ) {
+                    setLightMap( x + xOffset - light.radius, y + yOffset - light.radius, light.getLightValue( x, y ) );
+                }
+            }
         }
     }
 
@@ -181,6 +205,50 @@ public class Renderer {
                 y0 += sy;
             }
         }
+    }
+
+    public int getAmbientLight() {
+        return ambientLight;
+    }
+
+    public void setAmbientLight( int ambientLight ) {
+        this.ambientLight = ambientLight;
+    }
+
+    public int getClearColor() {
+        return clearColor;
+    }
+
+    public void setClearColor( int clearColor ) {
+        this.clearColor = clearColor;
+    }
+
+    public void setTransX( int transX ) {
+        this.transX = transX;
+    }
+
+    public void setTransY( int transY ) {
+        this.transY = transY;
+    }
+
+    public int getTransX() {
+        return transX;
+    }
+
+    public int getTransY() {
+        return transY;
+    }
+
+    public void drawImage( Image image ) {
+        drawImage( image, 0, 0 );
+    }
+
+    public void drawImageTile( ImageTile image, int tileX, int tileY ) {
+        drawImageTile( image, 0, 0, tileX, tileY );
+    }
+
+    public void drawLight( Light light ) {
+        drawLight( light, 0, 0 );
     }
 
 }

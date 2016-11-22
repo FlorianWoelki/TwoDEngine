@@ -4,6 +4,8 @@ import com.florianwoelki.twodengine.gfx.Renderer;
 import com.florianwoelki.twodengine.input.Input;
 import com.florianwoelki.twodengine.window.Window;
 
+import java.awt.event.KeyEvent;
+
 /**
  * Created by Florian Woelki on 18.11.16.
  */
@@ -19,8 +21,13 @@ public class GameContainer implements Runnable {
     private Input input;
 
     private Thread thread;
-    private boolean isRunning;
-    private final double FRAME_CAP = 1d / 60d;
+    private boolean isRunning = false;
+    private double frameCap = 1d / 60d;
+
+    private boolean enableLighting = false;
+    private boolean dynamicLights = false;
+    private boolean clearScreen = false;
+    private boolean debug = false;
 
     public GameContainer( AbstractGame game ) {
         this.game = game;
@@ -77,10 +84,12 @@ public class GameContainer implements Runnable {
             unprocessedTime += passedTime;
             frameTime += passedTime;
 
-            while ( unprocessedTime >= FRAME_CAP ) {
-                game.update( this, (float) FRAME_CAP );
+            while ( unprocessedTime >= frameCap ) {
+                if ( input.isKeyPressed( KeyEvent.VK_F2 ) ) debug = !debug;
+
+                game.update( this, (float) frameCap );
                 input.update();
-                unprocessedTime -= FRAME_CAP;
+                unprocessedTime -= frameCap;
                 render = true;
 
                 if ( frameTime >= 1 ) {
@@ -91,11 +100,16 @@ public class GameContainer implements Runnable {
             }
 
             if ( render ) {
-                renderer.clear();
+                if ( clearScreen ) renderer.clear();
+
                 game.render( this, renderer );
-                renderer.drawLightArray();
-                renderer.combineMaps();
-                renderer.drawString( "FPS-" + fps, 0xffffffff, 0, 1 );
+
+                if ( enableLighting || dynamicLights ) {
+                    renderer.drawLightArray();
+                    renderer.flushMaps();
+                }
+                if ( debug ) renderer.drawString( "FPS-" + fps, 0xffffffff, 0, 1 );
+
                 window.update();
                 frames++;
             } else {
@@ -113,6 +127,34 @@ public class GameContainer implements Runnable {
 
     private void cleanUp() {
         window.cleanUp();
+    }
+
+    public void setFrameCap( int number ) {
+        frameCap = 1f / number;
+    }
+
+    public void setDynamicLights( boolean dynamicLights ) {
+        this.dynamicLights = dynamicLights;
+    }
+
+    public boolean isDynamicLights() {
+        return dynamicLights;
+    }
+
+    public void setClearScreen( boolean clearScreen ) {
+        this.clearScreen = clearScreen;
+    }
+
+    public boolean isClearScreen() {
+        return clearScreen;
+    }
+
+    public void setEnableLighting( boolean enableLighting ) {
+        this.enableLighting = enableLighting;
+    }
+
+    public boolean isEnableLighting() {
+        return enableLighting;
     }
 
     public Input getInput() {
