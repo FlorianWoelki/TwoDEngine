@@ -4,12 +4,14 @@ import com.florianwoelki.twodengine.GameContainer;
 import com.florianwoelki.twodengine.components.State;
 import com.florianwoelki.twodengine.components.objects.ObjectManager;
 import com.florianwoelki.twodengine.gfx.Renderer;
+import lombok.Getter;
 
 /**
  * Created by Florian Woelki on 22.11.16.
  */
 public class PlayState extends State {
 
+    @Getter
     private ObjectManager manager;
 
     public PlayState() {
@@ -32,10 +34,6 @@ public class PlayState extends State {
     @Override
     public void dispose() {
         manager.disposeObjects();
-    }
-
-    public ObjectManager getManager() {
-        return manager;
     }
 
 }

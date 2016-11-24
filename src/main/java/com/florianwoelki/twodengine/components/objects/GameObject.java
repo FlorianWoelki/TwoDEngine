@@ -3,6 +3,8 @@ package com.florianwoelki.twodengine.components.objects;
 import com.florianwoelki.twodengine.GameContainer;
 import com.florianwoelki.twodengine.components.Component;
 import com.florianwoelki.twodengine.gfx.Renderer;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +14,14 @@ import java.util.List;
  */
 public abstract class GameObject {
 
+    @Setter
+    @Getter
     protected float x, y, width, height;
+    @Setter
+    @Getter
     protected String tag = "null";
+    @Setter
+    @Getter
     protected boolean isDead = false;
 
     protected List<Component> components = new ArrayList<>();
@@ -48,54 +56,6 @@ public abstract class GameObject {
         for ( Component component : components ) {
             component.render( gc, renderer );
         }
-    }
-
-    public void setX( float x ) {
-        this.x = x;
-    }
-
-    public void setY( float y ) {
-        this.y = y;
-    }
-
-    public void setWidth( float width ) {
-        this.width = width;
-    }
-
-    public void setHeight( float height ) {
-        this.height = height;
-    }
-
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public float getWidth() {
-        return width;
-    }
-
-    public float getHeight() {
-        return height;
-    }
-
-    public void setTag( String tag ) {
-        this.tag = tag;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public boolean isDead() {
-        return isDead;
-    }
-
-    public void setDead( boolean dead ) {
-        isDead = dead;
     }
 
 }

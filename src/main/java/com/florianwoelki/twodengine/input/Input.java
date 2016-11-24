@@ -1,6 +1,8 @@
 package com.florianwoelki.twodengine.input;
 
 import com.florianwoelki.twodengine.GameContainer;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -21,6 +23,8 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     private boolean[] buttons = new boolean[5];
     private boolean[] buttonsLast = new boolean[5];
 
+    @Setter
+    @Getter
     private int mouseX, mouseY;
 
     public Input( GameContainer gc ) {
@@ -106,22 +110,6 @@ public class Input implements KeyListener, MouseListener, MouseMotionListener {
     public void mouseMoved( MouseEvent e ) {
         mouseX = (int) ( e.getX() / gc.getScale() );
         mouseY = (int) ( e.getY() / gc.getScale() );
-    }
-
-    public int getMouseX() {
-        return mouseX;
-    }
-
-    public void setMouseX( int mouseX ) {
-        this.mouseX = mouseX;
-    }
-
-    public int getMouseY() {
-        return mouseY;
-    }
-
-    public void setMouseY( int mouseY ) {
-        this.mouseY = mouseY;
     }
 
 }

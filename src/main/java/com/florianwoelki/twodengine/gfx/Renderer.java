@@ -4,6 +4,8 @@ import com.florianwoelki.twodengine.GameContainer;
 import com.florianwoelki.twodengine.light.Light;
 import com.florianwoelki.twodengine.light.LightRequest;
 import com.florianwoelki.twodengine.light.ShadowType;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.image.DataBufferInt;
 import java.util.ArrayList;
@@ -21,9 +23,15 @@ public class Renderer {
     private int[] lightMap;
     private ShadowType[] shadowMap;
 
+    @Setter
+    @Getter
     private int ambientLight = Pixel.getColor( 1, 0.1f, 0.1f, 0.1f );
+    @Setter
+    @Getter
     private int clearColor = 0xff000000;
 
+    @Setter
+    @Getter
     private int transX, transY;
 
     private Font font = Font.STANDARD;
@@ -215,38 +223,6 @@ public class Renderer {
                 y0 += sy;
             }
         }
-    }
-
-    public int getAmbientLight() {
-        return ambientLight;
-    }
-
-    public void setAmbientLight( int ambientLight ) {
-        this.ambientLight = ambientLight;
-    }
-
-    public int getClearColor() {
-        return clearColor;
-    }
-
-    public void setClearColor( int clearColor ) {
-        this.clearColor = clearColor;
-    }
-
-    public void setTransX( int transX ) {
-        this.transX = transX;
-    }
-
-    public void setTransY( int transY ) {
-        this.transY = transY;
-    }
-
-    public int getTransX() {
-        return transX;
-    }
-
-    public int getTransY() {
-        return transY;
     }
 
     public void drawImage( Image image ) {

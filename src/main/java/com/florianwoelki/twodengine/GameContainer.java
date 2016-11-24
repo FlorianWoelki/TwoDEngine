@@ -4,6 +4,8 @@ import com.florianwoelki.twodengine.components.Physics;
 import com.florianwoelki.twodengine.gfx.Renderer;
 import com.florianwoelki.twodengine.input.Input;
 import com.florianwoelki.twodengine.window.Window;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.awt.event.KeyEvent;
 
@@ -12,22 +14,39 @@ import java.awt.event.KeyEvent;
  */
 public class GameContainer implements Runnable {
 
+    @Setter
+    @Getter
     private int width = 320, height = 240;
+    @Setter
+    @Getter
     private float scale = 2f;
+    @Setter
+    @Getter
     private String title = "TwoDEngine v1.0 by Florian Woelki";
 
+    @Getter
     private AbstractGame game;
+    @Getter
     private Window window;
     private Renderer renderer;
+    @Getter
     private Input input;
+    @Getter
     private Physics physics;
 
     private Thread thread;
     private boolean isRunning = false;
+    @Setter
     private double frameCap = 1d / 60d;
 
+    @Setter
+    @Getter
     private boolean enableLighting = false;
+    @Setter
+    @Getter
     private boolean dynamicLights = false;
+    @Setter
+    @Getter
     private boolean clearScreen = false;
     private boolean debug = false;
 
@@ -131,82 +150,6 @@ public class GameContainer implements Runnable {
 
     private void cleanUp() {
         window.cleanUp();
-    }
-
-    public AbstractGame getGame() {
-        return game;
-    }
-
-    public Physics getPhysics() {
-        return physics;
-    }
-
-    public void setFrameCap( int number ) {
-        frameCap = 1f / number;
-    }
-
-    public void setDynamicLights( boolean dynamicLights ) {
-        this.dynamicLights = dynamicLights;
-    }
-
-    public boolean isDynamicLights() {
-        return dynamicLights;
-    }
-
-    public void setClearScreen( boolean clearScreen ) {
-        this.clearScreen = clearScreen;
-    }
-
-    public boolean isClearScreen() {
-        return clearScreen;
-    }
-
-    public void setEnableLighting( boolean enableLighting ) {
-        this.enableLighting = enableLighting;
-    }
-
-    public boolean isEnableLighting() {
-        return enableLighting;
-    }
-
-    public Input getInput() {
-        return input;
-    }
-
-    public void setWidth( int width ) {
-        this.width = width;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setHeight( int height ) {
-        this.height = height;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setScale( float scale ) {
-        this.scale = scale;
-    }
-
-    public float getScale() {
-        return scale;
-    }
-
-    public void setTitle( String title ) {
-        this.title = title;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Window getWindow() {
-        return window;
     }
 
 }

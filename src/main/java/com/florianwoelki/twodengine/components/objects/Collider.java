@@ -3,13 +3,18 @@ package com.florianwoelki.twodengine.components.objects;
 import com.florianwoelki.twodengine.GameContainer;
 import com.florianwoelki.twodengine.components.Component;
 import com.florianwoelki.twodengine.gfx.Renderer;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Created by Florian Woelki on 22.11.16.
  */
 public class Collider extends Component {
 
+    @Getter
     private GameObject object;
+    @Setter
+    @Getter
     private float x, y, halfWidth, halfHeight;
 
     public Collider() {
@@ -37,39 +42,4 @@ public class Collider extends Component {
         this.object.componentEvent( tag, object );
     }
 
-    public GameObject getObject() {
-        return object;
-    }
-
-    public void setX( float x ) {
-        this.x = x;
-    }
-
-    public void setY( float y ) {
-        this.y = y;
-    }
-
-    public void setHalfWidth( float halfWidth ) {
-        this.halfWidth = halfWidth;
-    }
-
-    public void setHalfHeight( float halfHeight ) {
-        this.halfHeight = halfHeight;
-    }
-
-    public float getX() {
-        return x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public float getHalfWidth() {
-        return halfWidth;
-    }
-
-    public float getHalfHeight() {
-        return halfHeight;
-    }
 }

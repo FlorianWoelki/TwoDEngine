@@ -1,6 +1,7 @@
 package com.florianwoelki.twodengine.window;
 
 import com.florianwoelki.twodengine.GameContainer;
+import lombok.Getter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,8 +14,10 @@ import java.awt.image.BufferedImage;
 public class Window {
 
     private JFrame frame;
+    @Getter
     private Canvas canvas;
 
+    @Getter
     private BufferedImage image;
     private Graphics g;
     private BufferStrategy bs;
@@ -51,14 +54,6 @@ public class Window {
         bs.dispose();
         image.flush();
         frame.dispose();
-    }
-
-    public Canvas getCanvas() {
-        return canvas;
-    }
-
-    public BufferedImage getImage() {
-        return image;
     }
 
 }
