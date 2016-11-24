@@ -24,7 +24,7 @@ public class Player extends GameObject {
     @Override
     public void update( GameContainer gc, float dt ) {
         if ( gc.getInput().isKey( KeyEvent.VK_UP ) ) {
-            y -= 75 * dt;
+            y -= 125 * dt;
 
             if ( y < 0 ) {
                 y = 0;
@@ -32,7 +32,7 @@ public class Player extends GameObject {
         }
 
         if ( gc.getInput().isKey( KeyEvent.VK_DOWN ) ) {
-            y += 75 * dt;
+            y += 125 * dt;
 
             if ( y + height > gc.getHeight() ) {
                 y = gc.getHeight() - height;

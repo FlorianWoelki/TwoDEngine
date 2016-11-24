@@ -26,9 +26,9 @@ public class Ball extends GameObject {
     @Override
     public void update( GameContainer gc, float dt ) {
         if ( left ) {
-            x -= dt * 50;
+            x -= dt * 155;
         } else {
-            x += dt * 50;
+            x += dt * 155;
         }
 
         y += speedY;

@@ -27,11 +27,19 @@ public class Enemy extends GameObject {
         }
 
         if ( target.getY() + target.getHeight() / 2 > y - 2 ) {
-            y += dt * 75;
+            y += dt * 125;
+
+            if ( y < 0 ) {
+                y = 0;
+            }
         }
 
         if ( target.getY() + target.getHeight() / 2 < y + 2 ) {
-            y -= dt * 75;
+            y -= dt * 125;
+
+            if ( y + height > gc.getHeight() ) {
+                y = gc.getHeight() - height;
+            }
         }
 
         updateComponents( gc, dt );
