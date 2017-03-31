@@ -26,35 +26,35 @@ public abstract class GameObject {
 
     protected List<Component> components = new ArrayList<>();
 
-    public abstract void update( GameContainer gc, float dt );
+    public abstract void update(GameContainer gc, float dt);
 
-    public abstract void render( GameContainer gc, Renderer renderer );
+    public abstract void render(GameContainer gc, Renderer renderer);
 
-    public abstract void componentEvent( String name, GameObject object );
+    public abstract void componentEvent(String name, GameObject object);
 
     public abstract void dispose();
 
-    public void addComponent( Component component ) {
-        components.add( component );
+    public void addComponent(Component component) {
+        components.add(component);
     }
 
-    public void removeComponent( String tag ) {
-        for ( int i = 0; i < components.size(); i++ ) {
-            if ( components.get( i ).getTag().equalsIgnoreCase( tag ) ) {
-                components.remove( i );
+    public void removeComponent(String tag) {
+        for(int i = 0; i < components.size(); i++) {
+            if(components.get(i).getTag().equalsIgnoreCase(tag)) {
+                components.remove(i);
             }
         }
     }
 
-    public void updateComponents( GameContainer gc, float dt ) {
-        for ( Component component : components ) {
-            component.update( gc, this, dt );
+    public void updateComponents(GameContainer gc, float dt) {
+        for(Component component : components) {
+            component.update(gc, this, dt);
         }
     }
 
-    public void renderComponents( GameContainer gc, Renderer renderer ) {
-        for ( Component component : components ) {
-            component.render( gc, renderer );
+    public void renderComponents(GameContainer gc, Renderer renderer) {
+        for(Component component : components) {
+            component.render(gc, renderer);
         }
     }
 

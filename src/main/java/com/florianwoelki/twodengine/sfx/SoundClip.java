@@ -12,30 +12,30 @@ public class SoundClip {
     private Clip clip;
     private FloatControl gainControl;
 
-    public SoundClip( String path ) {
+    public SoundClip(String path) {
         try {
             clip = AudioSystem.getClip();
-            clip.open( AudioSystem.getAudioInputStream( getClass().getResourceAsStream( path ) ) );
+            clip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream(path)));
             clip.start();
 
-            gainControl = (FloatControl) clip.getControl( FloatControl.Type.MASTER_GAIN );
-        } catch ( Exception e ) {
+            gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }
 
     public void play() {
-        if ( clip == null ) {
+        if(clip == null) {
             return;
         }
 
         stop();
-        clip.setFramePosition( 0 );
+        clip.setFramePosition(0);
         clip.start();
     }
 
     public void stop() {
-        if ( clip.isRunning() ) {
+        if(clip.isRunning()) {
             clip.stop();
         }
     }
@@ -47,12 +47,12 @@ public class SoundClip {
     }
 
     public void loop() {
-        clip.loop( Clip.LOOP_CONTINUOUSLY );
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
         clip.start();
     }
 
-    public void setVolume( float value ) {
-        gainControl.setValue( value );
+    public void setVolume(float value) {
+        gainControl.setValue(value);
     }
 
 }

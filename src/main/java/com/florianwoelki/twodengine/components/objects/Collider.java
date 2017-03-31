@@ -18,28 +18,28 @@ public class Collider extends Component {
     private float x, y, halfWidth, halfHeight;
 
     public Collider() {
-        setTag( "collider" );
+        setTag("collider");
     }
 
     @Override
-    public void update( GameContainer gc, GameObject object, float dt ) {
-        if ( this.object == null ) this.object = object;
+    public void update(GameContainer gc, GameObject object, float dt) {
+        if(this.object == null) this.object = object;
 
         halfWidth = object.getWidth() / 2;
         halfHeight = object.getHeight() / 2;
         x = object.getX() + halfWidth;
         y = object.getY() + halfHeight;
 
-        gc.getPhysics().addCollider( this );
+        gc.getPhysics().addCollider(this);
     }
 
     @Override
-    public void render( GameContainer gc, Renderer renderer ) {
+    public void render(GameContainer gc, Renderer renderer) {
 
     }
 
-    public void collision( GameObject object ) {
-        this.object.componentEvent( tag, object );
+    public void collision(GameObject object) {
+        this.object.componentEvent(tag, object);
     }
 
 }

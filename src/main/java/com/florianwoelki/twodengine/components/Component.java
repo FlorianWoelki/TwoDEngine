@@ -15,8 +15,8 @@ public abstract class Component {
     @Getter
     protected String tag = null;
 
-    public abstract void update( GameContainer gc, GameObject object, float dt );
+    public abstract void update(GameContainer gc, GameObject object, float dt);
 
-    public abstract void render( GameContainer gc, Renderer renderer );
+    public abstract void render(GameContainer gc, Renderer renderer);
 
 }

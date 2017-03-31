@@ -50,37 +50,37 @@ public class GameContainer implements Runnable {
     private boolean clearScreen = false;
     private boolean debug = false;
 
-    public GameContainer( AbstractGame game ) {
+    public GameContainer(AbstractGame game) {
         this.game = game;
     }
 
     public void start() {
-        if ( isRunning ) {
+        if(isRunning) {
             return;
         }
 
-        window = new Window( this );
-        renderer = new Renderer( this );
-        input = new Input( this );
+        window = new Window(this);
+        renderer = new Renderer(this);
+        input = new Input(this);
         physics = new Physics();
 
-        window.getCanvas().setFocusable( true );
+        window.getCanvas().setFocusable(true);
         window.getCanvas().requestFocus();
 
         isRunning = true;
-        thread = new Thread( this );
+        thread = new Thread(this);
         thread.start();
     }
 
     public void stop() {
-        if ( isRunning ) {
+        if(isRunning) {
             return;
         }
 
         isRunning = false;
         try {
             thread.join();
-        } catch ( InterruptedException e ) {
+        } catch(InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -96,7 +96,7 @@ public class GameContainer implements Runnable {
         int frames = 0;
         int fps = 0;
 
-        while ( isRunning ) {
+        while(isRunning) {
             boolean render = true;
 
             firstTime = System.nanoTime() / 1e9;
@@ -106,39 +106,39 @@ public class GameContainer implements Runnable {
             unprocessedTime += passedTime;
             frameTime += passedTime;
 
-            while ( unprocessedTime >= frameCap ) {
-                if ( input.isKeyPressed( KeyEvent.VK_F2 ) ) debug = !debug;
+            while(unprocessedTime >= frameCap) {
+                if(input.isKeyPressed(KeyEvent.VK_F2)) debug = !debug;
 
-                game.update( this, (float) frameCap );
+                game.update(this, (float) frameCap);
                 physics.update();
                 input.update();
                 unprocessedTime -= frameCap;
                 render = true;
 
-                if ( frameTime >= 1 ) {
+                if(frameTime >= 1) {
                     frameTime = 0;
                     fps = frames;
                     frames = 0;
                 }
             }
 
-            if ( render ) {
-                if ( clearScreen ) renderer.clear();
+            if(render) {
+                if(clearScreen) renderer.clear();
 
-                game.render( this, renderer );
+                game.render(this, renderer);
 
-                if ( enableLighting || dynamicLights ) {
+                if(enableLighting || dynamicLights) {
                     renderer.drawLightArray();
                     renderer.flushMaps();
                 }
-                if ( debug ) renderer.drawString( "FPS-" + fps, 0xffffffff, 0, 1 );
+                if(debug) renderer.drawString("FPS-" + fps, 0xffffffff, 0, 1);
 
                 window.update();
                 frames++;
             } else {
                 try {
-                    Thread.sleep( 1 );
-                } catch ( InterruptedException e ) {
+                    Thread.sleep(1);
+                } catch(InterruptedException e) {
                     e.printStackTrace();
                 }
             }

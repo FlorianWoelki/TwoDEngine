@@ -7,13 +7,13 @@ public class AudioSystem {
 
     private static AudioSystem instance;
 
-    public SoundClip loadSoundClip( String path ) {
-        SoundClip clip = new SoundClip( path );
+    public SoundClip loadSoundClip(String path) {
+        SoundClip clip = new SoundClip(path);
         return clip;
     }
 
     public static AudioSystem getInstance() {
-        if ( instance == null ) {
+        if(instance == null) {
             instance = new AudioSystem();
         }
         return instance;

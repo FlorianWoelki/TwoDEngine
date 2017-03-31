@@ -13,15 +13,15 @@ public class Physics {
     private List<Collider> objects = new ArrayList<>();
 
     public void update() {
-        for ( int i = 0; i < objects.size(); i++ ) {
-            for ( int j = i + 1; j < objects.size(); j++ ) {
-                Collider c0 = objects.get( i );
-                Collider c1 = objects.get( j );
+        for(int i = 0; i < objects.size(); i++) {
+            for(int j = i + 1; j < objects.size(); j++) {
+                Collider c0 = objects.get(i);
+                Collider c1 = objects.get(j);
 
-                if ( Math.abs( c0.getX() - c1.getX() ) < c0.getHalfWidth() + c1.getHalfWidth() ) {
-                    if ( Math.abs( c0.getY() - c1.getY() ) < c0.getHalfHeight() + c1.getHalfHeight() ) {
-                        c0.collision( c1.getObject() );
-                        c1.collision( c0.getObject() );
+                if(Math.abs(c0.getX() - c1.getX()) < c0.getHalfWidth() + c1.getHalfWidth()) {
+                    if(Math.abs(c0.getY() - c1.getY()) < c0.getHalfHeight() + c1.getHalfHeight()) {
+                        c0.collision(c1.getObject());
+                        c1.collision(c0.getObject());
                     }
                 }
             }
@@ -30,8 +30,8 @@ public class Physics {
         objects.clear();
     }
 
-    public void addCollider( Collider collider ) {
-        objects.add( collider );
+    public void addCollider(Collider collider) {
+        objects.add(collider);
     }
 
 }

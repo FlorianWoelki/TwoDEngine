@@ -12,12 +12,12 @@ public abstract class AbstractGame {
 
     private Stack<State> states = new Stack<>();
 
-    public abstract void update( GameContainer gc, float dt );
+    public abstract void update(GameContainer gc, float dt);
 
-    public abstract void render( GameContainer gc, Renderer renderer );
+    public abstract void render(GameContainer gc, Renderer renderer);
 
-    public void push( State s ) {
-        states.push( s );
+    public void push(State s) {
+        states.push(s);
     }
 
     public void pop() {
@@ -25,9 +25,9 @@ public abstract class AbstractGame {
         states.pop();
     }
 
-    public void setState( State s ) {
+    public void setState(State s) {
         pop();
-        push( s );
+        push(s);
     }
 
     public State peek() {

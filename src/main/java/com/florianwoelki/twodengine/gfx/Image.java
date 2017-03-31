@@ -15,19 +15,19 @@ public class Image {
     public ShadowType shadowType = ShadowType.NONE;
     public int[] pixels;
 
-    public Image( String path ) {
+    public Image(String path) {
         BufferedImage image = null;
 
         try {
-            image = ImageIO.read( Image.class.getResourceAsStream( path ) );
-        } catch ( IOException e ) {
+            image = ImageIO.read(Image.class.getResourceAsStream(path));
+        } catch(IOException e) {
             e.printStackTrace();
         }
 
         width = image.getWidth();
         height = image.getHeight();
 
-        pixels = image.getRGB( 0, 0, width, height, null, 0, width );
+        pixels = image.getRGB(0, 0, width, height, null, 0, width);
         image.flush();
     }
 

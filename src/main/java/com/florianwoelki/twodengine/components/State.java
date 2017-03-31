@@ -13,9 +13,9 @@ public abstract class State {
     @Getter
     protected ObjectManager manager = new ObjectManager();
 
-    public abstract void update( GameContainer gc, float dt );
+    public abstract void update(GameContainer gc, float dt);
 
-    public abstract void render( GameContainer gc, Renderer renderer );
+    public abstract void render(GameContainer gc, Renderer renderer);
 
     public abstract void dispose();
 
