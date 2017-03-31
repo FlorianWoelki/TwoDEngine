@@ -13,19 +13,19 @@ public class Ball extends GameObject {
     private boolean left = true;
     private float speedY = 0;
 
-    public Ball( int x, int y ) {
-        setTag( "ball" );
+    public Ball(int x, int y) {
+        setTag("ball");
 
         this.x = x;
         this.y = y;
         width = 16;
         height = 16;
-        addComponent( new Collider() );
+        addComponent(new Collider());
     }
 
     @Override
-    public void update( GameContainer gc, float dt ) {
-        if ( left ) {
+    public void update(GameContainer gc, float dt) {
+        if(left) {
             x -= dt * 155;
         } else {
             x += dt * 155;
@@ -33,34 +33,34 @@ public class Ball extends GameObject {
 
         y += speedY;
 
-        if ( y < 0 ) {
+        if(y < 0) {
             y = 0;
             speedY *= -1;
         }
 
-        if ( y + height > gc.getHeight() ) {
+        if(y + height > gc.getHeight()) {
             y = gc.getHeight() - height;
             speedY *= -1;
         }
 
-        updateComponents( gc, dt );
+        updateComponents(gc, dt);
     }
 
     @Override
-    public void render( GameContainer gc, Renderer renderer ) {
-        renderer.drawRect( (int) x, (int) y, (int) width, (int) height, 0xff00ff00 );
+    public void render(GameContainer gc, Renderer renderer) {
+        renderer.drawRect((int) x, (int) y, (int) width, (int) height, 0xff00ff00);
     }
 
     @Override
-    public void componentEvent( String name, GameObject object ) {
-        if ( name.equalsIgnoreCase( "collider" ) ) {
-            if ( object.getX() < x ) {
+    public void componentEvent(String name, GameObject object) {
+        if(name.equalsIgnoreCase("collider")) {
+            if(object.getX() < x) {
                 left = false;
             } else {
                 left = true;
             }
 
-            speedY = -( ( object.getY() + object.getHeight() / 2 ) - ( y + height / 2 ) ) / ( object.getHeight() / 2 );
+            speedY = -((object.getY() + object.getHeight() / 2) - (y + height / 2)) / (object.getHeight() / 2);
         }
     }
 

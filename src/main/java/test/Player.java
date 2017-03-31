@@ -12,43 +12,43 @@ import java.awt.event.KeyEvent;
  */
 public class Player extends GameObject {
 
-    public Player( int x, int y ) {
-        setTag( "player" );
+    public Player(int x, int y) {
+        setTag("player");
         this.x = x;
         this.y = y;
         width = 16;
         height = 64;
-        addComponent( new Collider() );
+        addComponent(new Collider());
     }
 
     @Override
-    public void update( GameContainer gc, float dt ) {
-        if ( gc.getInput().isKey( KeyEvent.VK_UP ) ) {
+    public void update(GameContainer gc, float dt) {
+        if(gc.getInput().isKey(KeyEvent.VK_UP)) {
             y -= 125 * dt;
 
-            if ( y < 0 ) {
+            if(y < 0) {
                 y = 0;
             }
         }
 
-        if ( gc.getInput().isKey( KeyEvent.VK_DOWN ) ) {
+        if(gc.getInput().isKey(KeyEvent.VK_DOWN)) {
             y += 125 * dt;
 
-            if ( y + height > gc.getHeight() ) {
+            if(y + height > gc.getHeight()) {
                 y = gc.getHeight() - height;
             }
         }
 
-        updateComponents( gc, dt );
+        updateComponents(gc, dt);
     }
 
     @Override
-    public void render( GameContainer gc, Renderer renderer ) {
-        renderer.drawRect( (int) x, (int) y, (int) width, (int) height, 0xffffffff );
+    public void render(GameContainer gc, Renderer renderer) {
+        renderer.drawRect((int) x, (int) y, (int) width, (int) height, 0xffffffff);
     }
 
     @Override
-    public void componentEvent( String name, GameObject object ) {
+    public void componentEvent(String name, GameObject object) {
 
     }
 

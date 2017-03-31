@@ -12,46 +12,46 @@ public class Enemy extends GameObject {
 
     private GameObject target;
 
-    public Enemy( int x, int y ) {
+    public Enemy(int x, int y) {
         this.x = x;
         this.y = y;
         width = 16;
         height = 64;
-        addComponent( new Collider() );
+        addComponent(new Collider());
     }
 
     @Override
-    public void update( GameContainer gc, float dt ) {
-        if ( target == null ) {
-            target = gc.getGame().peek().getManager().findObject( "ball" );
+    public void update(GameContainer gc, float dt) {
+        if(target == null) {
+            target = gc.getGame().peek().getManager().findObject("ball");
         }
 
-        if ( target.getY() + target.getHeight() / 2 > y - 2 ) {
+        if(target.getY() + target.getHeight() / 2 > y - 2) {
             y += dt * 125;
 
-            if ( y < 0 ) {
+            if(y < 0) {
                 y = 0;
             }
         }
 
-        if ( target.getY() + target.getHeight() / 2 < y + 2 ) {
+        if(target.getY() + target.getHeight() / 2 < y + 2) {
             y -= dt * 125;
 
-            if ( y + height > gc.getHeight() ) {
+            if(y + height > gc.getHeight()) {
                 y = gc.getHeight() - height;
             }
         }
 
-        updateComponents( gc, dt );
+        updateComponents(gc, dt);
     }
 
     @Override
-    public void render( GameContainer gc, Renderer renderer ) {
-        renderer.drawRect( (int) x, (int) y, (int) width, (int) height, 0xffff0000 );
+    public void render(GameContainer gc, Renderer renderer) {
+        renderer.drawRect((int) x, (int) y, (int) width, (int) height, 0xffff0000);
     }
 
     @Override
-    public void componentEvent( String name, GameObject object ) {
+    public void componentEvent(String name, GameObject object) {
 
     }
 
