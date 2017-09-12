@@ -1,7 +1,7 @@
 package test;
 
 import com.florianwoelki.twodengine.GameContainer;
-import com.florianwoelki.twodengine.components.objects.Collider;
+import com.florianwoelki.twodengine.components.objects.CollideComponent;
 import com.florianwoelki.twodengine.components.objects.GameObject;
 import com.florianwoelki.twodengine.gfx.Renderer;
 
@@ -32,7 +32,7 @@ public class Player extends GameObject {
         width = 16;
         height = 64;
         // Add collision physics to the player
-        addComponent(new Collider());
+        addComponent(new CollideComponent());
     }
 
     /**

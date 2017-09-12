@@ -9,7 +9,7 @@ import lombok.Setter;
 /**
  * Created by Florian Woelki on 22.11.16.
  */
-public class Collider extends Component {
+public class CollideComponent extends Component {
 
     @Getter
     private GameObject object;
@@ -17,8 +17,8 @@ public class Collider extends Component {
     @Getter
     private float x, y, halfWidth, halfHeight;
 
-    public Collider() {
-        setTag("collider");
+    public CollideComponent() {
+        setTag("collide");
     }
 
     @Override

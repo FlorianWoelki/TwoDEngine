@@ -1,7 +1,7 @@
 package test;
 
 import com.florianwoelki.twodengine.GameContainer;
-import com.florianwoelki.twodengine.components.objects.Collider;
+import com.florianwoelki.twodengine.components.objects.CollideComponent;
 import com.florianwoelki.twodengine.components.objects.GameObject;
 import com.florianwoelki.twodengine.gfx.Renderer;
 
@@ -33,7 +33,7 @@ public class Ball extends GameObject {
         width = 16;
         height = 16;
         // Add collision physics to the ball
-        addComponent(new Collider());
+        addComponent(new CollideComponent());
     }
 
     /**
@@ -93,7 +93,7 @@ public class Ball extends GameObject {
      */
     @Override
     public void componentEvent(String name, GameObject object) {
-        if(name.equalsIgnoreCase("collider")) {
+        if(name.equalsIgnoreCase("collide")) {
             if(object.getX() < x) {
                 left = false;
             } else {

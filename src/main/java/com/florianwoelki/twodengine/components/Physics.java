@@ -1,6 +1,6 @@
 package com.florianwoelki.twodengine.components;
 
-import com.florianwoelki.twodengine.components.objects.Collider;
+import com.florianwoelki.twodengine.components.objects.CollideComponent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,13 +10,13 @@ import java.util.List;
  */
 public class Physics {
 
-    private List<Collider> objects = new ArrayList<>();
+    private List<CollideComponent> objects = new ArrayList<>();
 
     public void update() {
         for(int i = 0; i < objects.size(); i++) {
             for(int j = i + 1; j < objects.size(); j++) {
-                Collider c0 = objects.get(i);
-                Collider c1 = objects.get(j);
+                CollideComponent c0 = objects.get(i);
+                CollideComponent c1 = objects.get(j);
 
                 if(Math.abs(c0.getX() - c1.getX()) < c0.getHalfWidth() + c1.getHalfWidth()) {
                     if(Math.abs(c0.getY() - c1.getY()) < c0.getHalfHeight() + c1.getHalfHeight()) {
@@ -30,8 +30,8 @@ public class Physics {
         objects.clear();
     }
 
-    public void addCollider(Collider collider) {
-        objects.add(collider);
+    public void addCollider(CollideComponent collideComponent) {
+        objects.add(collideComponent);
     }
 
 }
